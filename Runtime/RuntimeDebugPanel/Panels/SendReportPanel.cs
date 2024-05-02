@@ -2,7 +2,6 @@ using TMPro;
 using Illumate.API;
 using UnityEngine.UI;
 using Illumate.Kit;
-using System.Diagnostics;
 
 namespace Illumate.RuntimeDebugPanel
 {
@@ -21,7 +20,8 @@ namespace Illumate.RuntimeDebugPanel
 
         private void SendReport()
         {
-            Reporter.Log(UnityEngine.LogType.Log, "REPORT: " + inputField.text);
+            string reportText = inputField.text == "" ? "No report text provided." : "- Report Text: " + inputField.text;
+            Reporter.Log(UnityEngine.LogType.Log, reportText);
             inputField.interactable = false;
             sendButton.interactable = false;
             sendButtonText.text = "Sending...";

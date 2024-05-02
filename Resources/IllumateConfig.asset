@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfc0349e4f54044e90c728c2f0f604e, type: 3}
   m_Name: IllumateConfig
   m_EditorClassIdentifier: 
-  kitSingletonPrefab: {fileID: 6084483273899732917, guid: b60f4e75797d306478205836e428c63c,
-    type: 3}
+  kitSingletonPrefab: {fileID: 6084483273899732917, guid: b60f4e75797d306478205836e428c63c, type: 3}
   apiSettings:
     appId: 0
     apiUrl: http://api.illumatestudios.com
@@ -22,5 +21,8 @@ MonoBehaviour:
     - {fileID: 3081147326929730349, guid: f47cc4421b0c1e8498a604b83ea9bd40, type: 3}
     - {fileID: 6803182168480700912, guid: 2b1f1e535202b49438170026c96e9641, type: 3}
     - {fileID: 3442329678654139813, guid: 4a8c40c614ac6e04aba9c3ff5062d939, type: 3}
+    - {fileID: 2932674440832018173, guid: 4cb600b95b2900f439dfe08afa4b9507, type: 3}
+    infoText: "Contact: <link=\"mailto:hi@illumatestudios.com\">hi@illumatestudios.com</link>\n\xA9
+      Illumate Studios"
   reporterSettings:
     ignoredMessages: []
