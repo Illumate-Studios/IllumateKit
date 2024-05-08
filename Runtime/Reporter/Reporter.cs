@@ -6,7 +6,7 @@ namespace Illumate
 {
     public class Reporter : MonoBehaviour
     {
-        #region Singleton
+        #region Private Singleton
         private static Reporter _instance;
         private static Reporter Instance
         {
@@ -25,8 +25,11 @@ namespace Illumate
 
         private readonly ReporterData logStackData = new();
 
-        public static void Log(string message) => Log(LogType.Log, message);
-        public static void Log(LogType type, string message, string stack = null)
+        public static void Log(string message, UnityEngine.Object context = null) => Log(LogType.Log, message, context);
+        public static void LogWarning(string message, UnityEngine.Object context = null) => Log(LogType.Warning, message, context);
+        public static void LogError(string message, UnityEngine.Object context = null) => Log(LogType.Error, message, context);
+
+        private static void Log(LogType type, string message, string stack = null)
         {
             if (Instance.IsIgnoredMessage(type, message)) return;
 
@@ -46,6 +49,27 @@ namespace Illumate
 
             Instance.logStackData.Log(type, message, type == LogType.Log ? null : stack);
         }
+        private static void Log(LogType type, string message, UnityEngine.Object context, string stack = null)
+        {
+            if (Instance.IsIgnoredMessage(type, message)) return;
+
+            message ??= "";
+            message.Trim();
+
+            stack ??= "";
+            stack = stack.Trim();
+
+            if (type != LogType.Log)
+                if (stack == null || stack == "")
+                    stack = new System.Diagnostics.StackTrace().ToString().Trim();
+
+#if UNITY_EDITOR
+            SendConsoleInfo(type, message);
+#endif
+
+            Instance.logStackData.Log(type, message, type == LogType.Log ? null : stack);
+        }
+
 
 
         public static void SetStat(string key, string value)
