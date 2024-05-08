@@ -25,7 +25,7 @@ namespace Illumate
 
         private readonly ReporterData logStackData = new();
 
-
+        public static void Log(string message) => Log(LogType.Log, message);
         public static void Log(LogType type, string message, string stack = null)
         {
             if (Instance.IsIgnoredMessage(type, message)) return;
