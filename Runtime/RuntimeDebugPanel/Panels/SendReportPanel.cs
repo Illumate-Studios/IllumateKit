@@ -21,7 +21,7 @@ namespace Illumate.RuntimeDebugPanel
         private void SendReport()
         {
             string reportText = inputField.text == "" ? "No report text provided." : "- Report Text: " + inputField.text;
-            Reporter.Log(UnityEngine.LogType.Log, reportText);
+            Reporter.Log(reportText);
             inputField.interactable = false;
             sendButton.interactable = false;
             sendButtonText.text = "Sending...";

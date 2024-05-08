@@ -6,6 +6,7 @@ namespace Illumate.RuntimeDebugPanel
     internal class RDPPanelsSettings
     {
         public RDPPanelBase[] panels;
+
         [TextArea(minLines: 2, maxLines: 5)]
         public string infoText = "Illumate Studios";
     }
