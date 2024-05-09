@@ -28,6 +28,17 @@ namespace Illumate
         public static void Log(string message, UnityEngine.Object context = null) => Log(LogType.Log, message, context);
         public static void LogWarning(string message, UnityEngine.Object context = null) => Log(LogType.Warning, message, context);
         public static void LogError(string message, UnityEngine.Object context = null) => Log(LogType.Error, message, context);
+        public static void SetStat(string key, string value) => Instance.logStackData.SetStat(key, value);
+        public static string GenerateReport() => Instance.logStackData.GenerateText();
+
+
+        private void Awake()
+        {
+            //Application.lowMemory += Event_LowMemory;
+            //Application.logMessageReceived += Event_LogMessageReceived;
+            //// Application.logMessageReceivedThreaded += Application_logMessageReceivedThreaded; // https://docs.unity3d.com/ScriptReference/Application-logMessageReceivedThreaded.html
+            //UnityEngine.ResourceManagement.ResourceManager.ExceptionHandler = OnAddressableExceptionHandle;
+        }
 
         private static void Log(LogType type, string message, string stack = null)
         {
@@ -49,6 +60,7 @@ namespace Illumate
 
             Instance.logStackData.Log(type, message, type == LogType.Log ? null : stack);
         }
+
         private static void Log(LogType type, string message, UnityEngine.Object context, string stack = null)
         {
             if (Instance.IsIgnoredMessage(type, message)) return;
@@ -68,24 +80,6 @@ namespace Illumate
 #endif
 
             Instance.logStackData.Log(type, message, type == LogType.Log ? null : stack);
-        }
-
-
-
-        public static void SetStat(string key, string value)
-        {
-            Instance.logStackData.SetStat(key, value);
-        }
-
-        public static string GenerateReport() => Instance.logStackData.GenerateText();
-
-
-        private void Awake()
-        {
-            //Application.lowMemory += Event_LowMemory;
-            //Application.logMessageReceived += Event_LogMessageReceived;
-            //// Application.logMessageReceivedThreaded += Application_logMessageReceivedThreaded; // https://docs.unity3d.com/ScriptReference/Application-logMessageReceivedThreaded.html
-            //UnityEngine.ResourceManagement.ResourceManager.ExceptionHandler = OnAddressableExceptionHandle;
         }
 
         private void Event_LogMessageReceived(string condition, string stackTrace, LogType type)
@@ -108,21 +102,21 @@ namespace Illumate
 
         private static void SendConsoleInfo(LogType type, string message)
         {
-            //Debug.Log($"LogStack.Log: {type} - {message}");
-            //switch (type)
-            //{
-            //    case LogType.Error:
-            //    case LogType.Exception:
-            //    case LogType.Assert:
-            //        Debug.Log($"{"LogStack.Log:".Colorize(Color.black)} {type.ToString().Colorize(Color.red)} - {message}");
-            //        break;
-            //    case LogType.Warning:
-            //        Debug.Log($"{"LogStack.Log:".Colorize(Color.black)} {type.ToString().Colorize(Color.yellow)} - {message}");
-            //        break;
-            //    case LogType.Log:
-            //        Debug.Log($"{"LogStack.Log:".Colorize(Color.black)} {type.ToString().Colorize(Color.green)} - {message}");
-            //        break;
-            //}
+            string text = ColorizeHex("REPORTER: ", "7fd6fd");
+            text += Colorize(type.ToString(), type switch
+            {
+                LogType.Error => Color.red,
+                LogType.Exception => Color.red,
+                LogType.Assert => Color.red,
+                LogType.Warning => Color.yellow,
+                LogType.Log => Color.white,
+                _ => Color.red
+            });
+            text += " => " + message;
+            Debug.Log(text);
+
+            string Colorize(string text, Color color) => ColorizeHex(text, ColorUtility.ToHtmlStringRGB(color));
+            string ColorizeHex(string text, string colorHex) => $"<color={colorHex}>{text}</color>";
         }
 
         private bool IsIgnoredMessage(LogType logType, string message)
