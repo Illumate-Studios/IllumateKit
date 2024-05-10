@@ -40,9 +40,9 @@ namespace Illumate
         /// <returns></returns>
         internal string GenerateText()
         {
-            string text = $"LOG STACK (v0.1)        Date: {DateTime.Now:dd/MM/yyyy HH:mm}\n" +
+            string text = $"{nameof(Reporter)} (v0.1)        Date: {DateTime.Now:dd/MM/yyyy HH:mm}\n" +
                 $"Application: {Application.productName} by {Application.companyName} (v{Application.version})\n" +
-                $"Unity Version: {Application.unityVersion}, {Application.systemLanguage}, Build GUID: {Application.buildGUID}," +
+                $"Unity Version: {Application.unityVersion}, {Application.systemLanguage}, Build GUID: {Application.buildGUID}, " +
                 $"Platform: {Application.platform}, Url: {Application.absoluteURL}";
 
             text += "\nSystem:\n";
