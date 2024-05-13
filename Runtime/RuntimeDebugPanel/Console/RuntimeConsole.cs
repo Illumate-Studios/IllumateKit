@@ -11,6 +11,7 @@ namespace Illumate.RuntimeDebugPanel
         internal List<RuntimeConsoleCommand> commandLines = new();
         [SerializeField] private TMP_InputField input;
         [SerializeField] private TMP_Text output;
+        //[SerializeField] private Button sendButton;
 
         private int count = 0;
 
@@ -19,6 +20,7 @@ namespace Illumate.RuntimeDebugPanel
         private void Start()
         {
             input.onEndEdit.AddListener(OnSent);
+            //sendButton.onClick.AddListener(() => OnSent(input.text));
 
             // Find all commands
             var derivedTypes = new List<Type>();
