@@ -985,7 +985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2baa3901e55d4e84dab6fea2c3771cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputField: {fileID: 8582120459218278664}
+  inputField: {fileID: 5438920778721960025}
   sendButton: {fileID: 1855350297117149374}
   copyButton: {fileID: 2294162820936417957}
   sendButtonText: {fileID: 8999807718055537503}
