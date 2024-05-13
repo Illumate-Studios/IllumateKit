@@ -10,6 +10,13 @@ namespace Illumate.RuntimeDebugPanel
         [SerializeField] private GameObject mainPanel;
         [SerializeField] private Transform listTransform;
 
+        /// <summary>
+        /// Called by serialized events
+        /// </summary>
+        public void TogglePanel()
+        {
+            mainPanel.SetActive(!mainPanel.activeSelf);
+        }
 
         private void Start()
         {
@@ -30,9 +37,6 @@ namespace Illumate.RuntimeDebugPanel
             toggleInput.performed -= TogglePerformed;
         }
 
-        private void TogglePerformed(InputAction.CallbackContext obj)
-        {
-            mainPanel.SetActive(!mainPanel.activeSelf);
-        }
+        private void TogglePerformed(InputAction.CallbackContext obj) => TogglePanel();
     }
 }
