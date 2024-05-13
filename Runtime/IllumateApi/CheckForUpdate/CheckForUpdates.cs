@@ -9,14 +9,22 @@ namespace Illumate.API
         internal override object PostData => new { appId, platform };
 
         public string platform =
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
                 "editor";
-            #elif UNITY_WEBGL
+#elif UNITY_WEBGL
                 "webgl";
-            #elif UNITY_ANDROID
+#elif UNITY_ANDROID
                 "android";
-            #elif UNITY_IOS
+#elif UNITY_IOS
                 "ios";
-            #endif
+#elif UNITY_STANDALONE_WIN
+                "windows";
+#elif UNITY_STANDALONE_LINUX
+                "linux";
+#elif UNITY_STANDALONE_OSX
+                "osx";
+#else
+                "unknown";
+#endif
     }
 }

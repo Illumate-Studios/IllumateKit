@@ -68,7 +68,7 @@ namespace Illumate
                 text += "\nLogs\n";
                 foreach (var log in logs)
                 {
-                    text += $"{log.Type}: {log.Message}\n";
+                    text += $"[{log.Time:HH:mm:ss}] {log.Type}: {log.Message}\n";
                     string stackTrace = log.StackTrace != null ? log.StackTrace.Trim() : "";
                     if (!string.IsNullOrEmpty(stackTrace))
                     {
@@ -90,6 +90,12 @@ namespace Illumate
             public LogType Type;
             public string Message;
             public string StackTrace;
+            public DateTime Time;
+
+            public LogData()
+            {
+                Time = DateTime.Now;
+            }
         }
     }
 
