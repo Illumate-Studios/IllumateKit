@@ -1,4 +1,5 @@
 using Illumate.Kit;
+using Newtonsoft.Json;
 using System;
 using UnityEngine;
 
@@ -23,21 +24,22 @@ namespace Illumate
         }
         #endregion
 
-        private readonly ReporterData logStackData = new();
+        private ReporterData logStackData;
 
         public static void Log(string message, UnityEngine.Object context = null) => Log(LogType.Log, message, context);
         public static void LogWarning(string message, UnityEngine.Object context = null) => Log(LogType.Warning, message, context);
         public static void LogError(string message, UnityEngine.Object context = null) => Log(LogType.Error, message, context);
         public static void SetStat(string key, string value) => Instance.logStackData.SetStat(key, value);
-        public static string GenerateReport() => Instance.logStackData.GenerateText();
+        public static string GenerateReport() => JsonConvert.SerializeObject(Instance.logStackData);
 
 
         private void Awake()
         {
-            //Application.lowMemory += Event_LowMemory;
-            //Application.logMessageReceived += Event_LogMessageReceived;
-            //// Application.logMessageReceivedThreaded += Application_logMessageReceivedThreaded; // https://docs.unity3d.com/ScriptReference/Application-logMessageReceivedThreaded.html
-            //UnityEngine.ResourceManagement.ResourceManager.ExceptionHandler = OnAddressableExceptionHandle;
+            logStackData = new();
+            // Application.lowMemory += Event_LowMemory;
+            // Application.logMessageReceived += Event_LogMessageReceived;
+            // Application.logMessageReceivedThreaded += Application_logMessageReceivedThreaded; // https://docs.unity3d.com/ScriptReference/Application-logMessageReceivedThreaded.html
+            // UnityEngine.ResourceManagement.ResourceManager.ExceptionHandler = OnAddressableExceptionHandle;
         }
 
         private static void Log(LogType type, string message, string stack = null)
@@ -97,7 +99,7 @@ namespace Illumate
         private void OnDestroy()
         {
             if(!Application.isPlaying)
-                Debug.Log("LogStack destroyed. LogStack: " + logStackData.GenerateText());
+                Debug.Log($"{nameof(Reporter)} destroyed at runtime. Report:\n" + GenerateReport());
         }
 
         private static void SendConsoleInfo(LogType type, string message)
@@ -126,7 +128,6 @@ namespace Illumate
                     return true;
             return false;
         }
-
 
 
         [Serializable]

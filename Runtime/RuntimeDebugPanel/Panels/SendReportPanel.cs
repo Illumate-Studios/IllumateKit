@@ -38,7 +38,8 @@ namespace Illumate.RuntimeDebugPanel
             sendButton.interactable = false;
             sendButtonText.text = "Sending...";
             log = Reporter.GenerateReport();
-            IApi.SendRequest(new SendReport(Application.identifier, log), OnReportResult);
+            string sender = $"{SystemInfo.deviceName} ({SystemInfo.deviceModel})";
+            IApi.SendRequest(new SendReport(sender, log), OnReportResult);
         }
 
 

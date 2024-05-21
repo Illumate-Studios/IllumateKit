@@ -1,7 +1,7 @@
 {
 	"name": "com.illumate.kit",
 	"displayName": "Illumate Kit",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "In game tools for realtime development help",
 	"dependencies": {
 		"com.unity.inputsystem": ">=1.7.0",

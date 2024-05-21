@@ -6,9 +6,13 @@ namespace Illumate
 {
     internal class ReporterData
     {
-        internal readonly List<string> ignoredLogs = new();
-        private readonly List<LogData> logs = new();
-        private readonly Dictionary<string, string> stats = new();
+        public readonly string Version = "0.2";
+        public readonly ApplicationData applicationData = new();
+        public readonly SystemData systemData = new();
+        public readonly List<LogLine> logs = new();
+        public readonly Dictionary<string, string> stats = new();
+
+
 
         /// <summary>
         /// Logs a message to the stack
@@ -17,8 +21,7 @@ namespace Illumate
         /// <param name="message"></param>
         internal void Log(LogType logType, string message, string stackTrace = null)
         {
-            if (ignoredLogs.Contains(message)) return;
-            logs.Add(new LogData { Type = logType, Message = message, StackTrace = stackTrace });
+            logs.Add(new LogLine { Type = logType, Message = message});
         }
 
         /// <summary>
@@ -34,68 +37,60 @@ namespace Illumate
                 stats.Add(key, value);
         }
 
-        /// <summary>
-        /// Generate text from the logs, stats and system info
-        /// </summary>
-        /// <returns></returns>
-        internal string GenerateText()
-        {
-            string text = $"{nameof(Reporter)} (v0.1)        Date: {DateTime.Now:dd/MM/yyyy HH:mm}\n" +
-                $"Application: {Application.productName} by {Application.companyName} (v{Application.version})\n" +
-                $"Unity Version: {Application.unityVersion}, {Application.systemLanguage}, Build GUID: {Application.buildGUID}, " +
-                $"Platform: {Application.platform}, Url: {Application.absoluteURL}";
-
-            text += "\nSystem:\n";
-            text += $"{SystemInfo.deviceModel}, {SystemInfo.deviceName}, {SystemInfo.deviceType}, {SystemInfo.deviceUniqueIdentifier} \n";
-            text += $"{SystemInfo.graphicsDeviceName}, {SystemInfo.graphicsDeviceType}, {SystemInfo.graphicsDeviceVendor}, {SystemInfo.graphicsDeviceVendorID}, {SystemInfo.graphicsDeviceVersion}, {SystemInfo.graphicsMemorySize}, {SystemInfo.graphicsShaderLevel} \n";
-            text += $"{SystemInfo.operatingSystem}, {SystemInfo.processorCount}, {SystemInfo.processorType}, {SystemInfo.systemMemorySize} \n";
-
-            if (stats.Count > 0)
-            {
-                text += "----------------------------------------\n";
-                text += "\nStats\n";
-                foreach (var stat in stats)
-                    text += $"{stat.Key}: {stat.Value}\n";
-            }
-            else
-            {
-                text += "No stats\n";
-            }
-
-            if (logs.Count > 0)
-            {
-                text += "----------------------------------------\n";
-                text += "\nLogs\n";
-                foreach (var log in logs)
-                {
-                    text += $"[{log.Time:HH:mm:ss}] {log.Type}: {log.Message}\n";
-                    string stackTrace = log.StackTrace != null ? log.StackTrace.Trim() : "";
-                    if (!string.IsNullOrEmpty(stackTrace))
-                    {
-                        // TODO: Add stack trace
-                    }
-                }
-            }
-            else
-            {
-                text += "No logs\n";
-            }
-            return text;
-        }
-
-
-
-        private class LogData
+        public class LogLine
         {
             public LogType Type;
             public string Message;
-            public string StackTrace;
-            public DateTime Time;
+            //public string StackTrace;
+            public DateTime Time = DateTime.Now;
+        }
 
-            public LogData()
-            {
-                Time = DateTime.Now;
-            }
+        public class ApplicationData
+        {
+            public string productName = Application.productName;
+            public string companyName = Application.companyName;
+            public string version = Application.version;
+            public string unityVersion = Application.unityVersion;
+            public string buildGUID = Application.buildGUID;
+            public string identifier = Application.identifier;
+            public string absoluteURL = Application.absoluteURL;
+            public string targetFrameRate = Application.targetFrameRate.ToString();
+            public string genuine = Application.genuine.ToString();
+            public string genuineCheckAvailable = Application.genuineCheckAvailable.ToString();
+            public string installMode = Application.installMode.ToString();
+            public string sandboxType = Application.sandboxType.ToString();
+            public string internetReachability = Application.internetReachability.ToString();
+            public string isMobilePlatform = Application.isMobilePlatform.ToString();
+            public string isConsolePlatform = Application.isConsolePlatform.ToString();
+            public string isEditor = Application.isEditor.ToString();
+            public string isBatchMode = Application.isBatchMode.ToString();
+            public string backgroundLoadingPriority = Application.backgroundLoadingPriority.ToString();
+        }
+
+        public class SystemData
+        {
+            public string systemLanguage = Application.systemLanguage.ToString();
+            public string platform = Application.platform.ToString();
+            public string dataPath = Application.dataPath;
+            public string persistentDataPath = Application.persistentDataPath;
+            public string streamingAssetsPath = Application.streamingAssetsPath;
+            public string temporaryCachePath = Application.temporaryCachePath;
+            public string consoleLogPath = Application.consoleLogPath;
+            public string systemMemorySize = SystemInfo.systemMemorySize.ToString();
+            public string processorType = SystemInfo.processorType;
+            public string processorCount = SystemInfo.processorCount.ToString();
+            public string operatingSystem = SystemInfo.operatingSystem;
+            public string graphicsDeviceName = SystemInfo.graphicsDeviceName;
+            public string graphicsDeviceType = SystemInfo.graphicsDeviceType.ToString();
+            public string graphicsDeviceVendor = SystemInfo.graphicsDeviceVendor;
+            public string graphicsDeviceVendorID = SystemInfo.graphicsDeviceVendorID.ToString();
+            public string graphicsDeviceVersion = SystemInfo.graphicsDeviceVersion;
+            public string graphicsMemorySize = SystemInfo.graphicsMemorySize.ToString();
+            public string graphicsShaderLevel = SystemInfo.graphicsShaderLevel.ToString();
+            public string deviceModel = SystemInfo.deviceModel;
+            public string deviceName = SystemInfo.deviceName;
+            public string deviceType = SystemInfo.deviceType.ToString();
+            public string deviceUniqueIdentifier = SystemInfo.deviceUniqueIdentifier;
         }
     }
 
