@@ -18,6 +18,7 @@ namespace Illumate
                     _instance = FindObjectOfType<Reporter>();
                     if (_instance == null)
                         _instance = new GameObject(nameof(Reporter)).AddComponent<Reporter>();
+                    _instance.logStackData = new ReporterData();
                 }
                 return _instance;
             }
@@ -35,7 +36,6 @@ namespace Illumate
 
         private void Awake()
         {
-            logStackData = new();
             // Application.lowMemory += Event_LowMemory;
             // Application.logMessageReceived += Event_LogMessageReceived;
             // Application.logMessageReceivedThreaded += Application_logMessageReceivedThreaded; // https://docs.unity3d.com/ScriptReference/Application-logMessageReceivedThreaded.html
