@@ -52,7 +52,7 @@ namespace Illumate.RuntimeDebugPanel
             else
             {
                 sendButtonText.text = "Sending failed!";
-                GUIUtility.systemCopyBuffer = log;
+                Clipboard.CopyToClipboard(log);
                 Modals.Alert("Failed to send report! Logs has been copied to your clipboard. You can send the logs to the developers manually.");
                 Reporter.LogError("SendReportPanel.OnReportResult | Failed to send report: " + result.message);
             }
