@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace Illumate
@@ -6,13 +7,13 @@ namespace Illumate
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
         [DllImport("__Internal")]
-        private static extern void CopyToClipboard(string text);
+        private static extern void CopyToWebClipboard(string text);
 #endif
 
         public static void CopyToClipboard(string text)
         {
 #if UNITY_WEBGL && !UNITY_EDITOR
-            CopyToClipboard(text);
+            CopyToWebClipboard(text);
 #else
             GUIUtility.systemCopyBuffer = text;
 #endif
