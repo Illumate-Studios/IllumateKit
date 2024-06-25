@@ -26,7 +26,7 @@ namespace Illumate.RuntimeDebugPanel
         private void CopyReport()
         {
             log = Reporter.GenerateReport();
-            GUIUtility.systemCopyBuffer = log;
+            Clipboard.CopyToClipboard(log);
             StartCoroutine(CopyButtonTextCR());
         }
 
