@@ -7,6 +7,12 @@ namespace Illumate
 {
     public class Reporter : MonoBehaviour
     {
+#if UNITY_ANDROID || UNITY_IOS
+        public const string SEND_REPORT_DESCRIPTION = "Please double-click on top-right corner of your screen and send error report.";
+#else
+        public const string SEND_REPORT_DESCRIPTION = "Please press F8 and send error report.";
+#endif
+
         #region Private Singleton
         private static Reporter _instance;
         private static Reporter Instance

@@ -54,16 +54,16 @@ namespace Illumate
             public string buildGUID = Application.buildGUID;
             public string identifier = Application.identifier;
             public string absoluteURL = Application.absoluteURL;
-            public string targetFrameRate = Application.targetFrameRate.ToString();
-            public string genuine = Application.genuine.ToString();
-            public string genuineCheckAvailable = Application.genuineCheckAvailable.ToString();
+            public int targetFrameRate = Application.targetFrameRate;
+            public bool genuine = Application.genuine;
+            public bool genuineCheckAvailable = Application.genuineCheckAvailable;
             public string installMode = Application.installMode.ToString();
             public string sandboxType = Application.sandboxType.ToString();
             public string internetReachability = Application.internetReachability.ToString();
-            public string isMobilePlatform = Application.isMobilePlatform.ToString();
-            public string isConsolePlatform = Application.isConsolePlatform.ToString();
-            public string isEditor = Application.isEditor.ToString();
-            public string isBatchMode = Application.isBatchMode.ToString();
+            public bool isMobilePlatform = Application.isMobilePlatform;
+            public bool isConsolePlatform = Application.isConsolePlatform;
+            public bool isEditor = Application.isEditor;
+            public bool isBatchMode = Application.isBatchMode;
             public string backgroundLoadingPriority = Application.backgroundLoadingPriority.ToString();
         }
 
@@ -76,17 +76,17 @@ namespace Illumate
             public string streamingAssetsPath = Application.streamingAssetsPath;
             public string temporaryCachePath = Application.temporaryCachePath;
             public string consoleLogPath = Application.consoleLogPath;
-            public string systemMemorySize = SystemInfo.systemMemorySize.ToString();
+            public int systemMemorySize = SystemInfo.systemMemorySize;
             public string processorType = SystemInfo.processorType;
-            public string processorCount = SystemInfo.processorCount.ToString();
+            public int processorCount = SystemInfo.processorCount;
             public string operatingSystem = SystemInfo.operatingSystem;
             public string graphicsDeviceName = SystemInfo.graphicsDeviceName;
             public string graphicsDeviceType = SystemInfo.graphicsDeviceType.ToString();
             public string graphicsDeviceVendor = SystemInfo.graphicsDeviceVendor;
-            public string graphicsDeviceVendorID = SystemInfo.graphicsDeviceVendorID.ToString();
+            public int graphicsDeviceVendorID = SystemInfo.graphicsDeviceVendorID;
             public string graphicsDeviceVersion = SystemInfo.graphicsDeviceVersion;
-            public string graphicsMemorySize = SystemInfo.graphicsMemorySize.ToString();
-            public string graphicsShaderLevel = SystemInfo.graphicsShaderLevel.ToString();
+            public int graphicsMemorySize = SystemInfo.graphicsMemorySize;
+            public int graphicsShaderLevel = SystemInfo.graphicsShaderLevel;
             public string deviceModel = SystemInfo.deviceModel;
             public string deviceName = SystemInfo.deviceName;
             public string deviceType = SystemInfo.deviceType.ToString();
